@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Add Shift{% endblock %}
+{% block content %}
+<div class="container center-container">
+    <h2 class="center-container">Edit Shift</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="staff_id">Staff Member:</label>
+            <select name="staff_id" id="staff_id" required>
+                {% for staff in staff_members %}
+                    <option value="{{ staff.id }}" {% if staff.id == shift.staff_id %}selected{% endif %}>{{ staff.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="day_of_week">Day of Week:</label>
+            <select name="day_of_week" id="day_of_week" required>
+                <option value="Monday" {% if shift.day_of_week == 'Monday' %}selected{% endif %}>Monday</option>
+                <option value="Tuesday" {% if shift.day_of_week == 'Tuesday' %}selected{% endif %}>Tuesday</option>
+                <option value="Wednesday" {% if shift.day_of_week == 'Wednesday' %}selected{% endif %}>Wednesday</option>
+                <option value="Thursday" {% if shift.day_of_week == 'Thursday' %}selected{% endif %}>Thursday</option>
+                <option value="Friday" {% if shift.day_of_week == 'Friday' %}selected{% endif %}>Friday</option>
+                <option value="Saturday" {% if shift.day_of_week == 'Saturday' %}selected{% endif %}>Saturday</option>
+                <option value="Sunday" {% if shift.day_of_week == 'Sunday' %}selected{% endif %}>Sunday</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="start_time">Start Time:</label>
+            <input type="time" name="start_time" id="start_time" value="{{ shift.start_time }}" required>
+        </div>
+        <div class="form-group">
+            <label for="end_time">End Time:</label>
+            <input type="time" name="end_time" id="end_time" value="{{ shift.end_time }}" required>
+        </div>
+        <button type="submit" class="btn">Update Shift</button>
+    </form>
+</div>
+{% endblock %}

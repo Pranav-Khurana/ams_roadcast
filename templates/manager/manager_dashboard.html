@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Manager Dasboard{% endblock %}
+
+{% block navbar %}
+<nav class="navbar">
+    <ul class="nav-list">
+        <li class="nav-item"><a href="{{ url_for('manager_routes.add_staff') }}">Add Staff</a></li>
+        <li class="nav-item"><a href="{{ url_for('manager_routes.assign_shift') }}">Assign Shift</a></li>
+        <li class="nav-item"><a href="{{ url_for('manager_routes.view_roster') }}">Roster</a></li>
+        <li class="nav-item"><a href="{{ url_for('manager_routes.view_attendance') }}">Attendance</a></li>
+        <li class="nav-item"><a href="{{ url_for('auth_routes.logout')}}">Logout</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h2 class="center-text">Staff Members</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for staff_member in staff_members %}
+                <tr>
+                    <td>{{ staff_member.id }}</td>
+                    <td>{{ staff_member.fname }}</td>
+                    <td>{{ staff_member.lname }}</td>
+                    <td>{{ staff_member.username }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}

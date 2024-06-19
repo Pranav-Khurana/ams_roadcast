@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Attendance{% endblock %}
+
+{% block navbar %}
+<nav class="navbar">
+    <ul class="nav-list">
+        <li class="nav-item"><a href="{{ url_for('manager_routes.add_staff') }}">Add Staff</a></li>
+        <li class="nav-item"><a href="{{ url_for('manager_routes.assign_shift') }}">Assign Shift</a></li>
+        <li class="nav-item"><a href="{{ url_for('manager_routes.view_roster') }}">Roster</a></li>
+        <li class="nav-item"><a href="{{ url_for('manager_routes.dashboard') }}">Manager Dashboard</a></li>
+        <li class="nav-item"><a href="{{ url_for('auth_routes.logout')}}">Logout</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h2 class="center-text">Attendance</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Staff Member</th>
+                <th>Shift Start Time</th>
+                <th>Day of Week</th>
+                <th>Timestamp</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in attendance_records %}
+            <p>record</p>
+            <tr>
+                <td>{{ record.username }}</td>
+                <td>{{ record.start_time.strftime('%H:%M') }}</td> 
+                <td>{{ record.day_of_week }}</td>
+                <td>{{ record.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td><img src="{{ record.image_path }}" width="100"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

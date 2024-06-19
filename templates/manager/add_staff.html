@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Add Staff{% endblock %}
+{% block content %}
+<div class="container center-container">
+    <h2 class="center-text">Add New Staff Member</h2>
+    <form method="POST" action="{{ url_for('manager_routes.add_staff') }}">
+        <div class="form-group">
+            <label for="username">UserName/Email:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" required>
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Add Staff</button>
+    </form>
+</div>
+{% endblock %}

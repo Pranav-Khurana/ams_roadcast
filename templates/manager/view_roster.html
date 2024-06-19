@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Roster{% endblock %}
+
+{% block navbar %}
+<nav class="navbar">
+    <ul class="nav-list">
+        <li class="nav-item"><a href="{{ url_for('manager_routes.add_staff') }}">Add Staff</a></li>
+        <li class="nav-item"><a href="{{ url_for('manager_routes.assign_shift') }}">Assign Shift</a></li>
+        <li class="nav-item"><a href="{{ url_for('manager_routes.view_attendance') }}">Attendance</a></li>
+        <li class="nav-item"><a href="{{ url_for('manager_routes.dashboard') }}">Manager Dashboard</a></li>
+        <li class="nav-item"><a href="{{ url_for('auth_routes.logout')}}">Logout</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h2 class="center-text">Roster</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Staff Member</th>
+                <th>Day of Week</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for shift, username in roster %}
+                <tr>
+                    <td>{{ username if username else "unassigned" }}</td>
+                    <td>{{ shift.day_of_week }}</td>
+                    <td>{{ shift.start_time }}</td>
+                    <td>{{ shift.end_time }}</td>
+                    <td>
+                        <a href="{{ url_for('manager_routes.edit_shift', shift_id=shift.id) }}" class="btn">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

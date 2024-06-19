@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Portal{% endblock %}
+
+{% block navbar %}
+<nav class="navbar">
+    <ul class="nav-list">
+        <li class="nav-item"><a href="{{ url_for('auth_routes.logout')}}">Logout</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="container">
+        <h2 class="center-text">Staff Portal</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Day of Week</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for roster, attendance in shifts %}
+                <tr>
+                    <td>{{ roster.day_of_week }}</td>
+                    <td>{{ roster.start_time }}</td>
+                    <td>{{ roster.end_time }}</td>
+                    <td>
+                        {% if attendance %}
+                        <button disabled>Attendance Marked</button>
+                        {% else %}
+                        <a href="{{ url_for('staff_routes.mark_attendance', shift_id=roster.id) }}">Mark Attendance</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

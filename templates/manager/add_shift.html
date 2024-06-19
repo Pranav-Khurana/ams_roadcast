@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Add Shift{% endblock %}
+{% block content %}
+<div class="container center-container">
+    <h2 class="center-text">Add Shift to Roster</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="staff_id">Staff Member:</label>
+            <select name="staff_id" id="staff_id" required>
+                {% for staff in staff_members %}
+                    <option value="{{ staff.id }}">{{ staff.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="day_of_week">Day of Week:</label>
+            <select name="day_of_week" id="day_of_week" required>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="start_time">Start Time:</label>
+            <input type="time" name="start_time" id="start_time" required>
+        </div>
+        <div class="form-group">
+            <label for="end_time">End Time:</label>
+            <input type="time" name="end_time" id="end_time" required>
+        </div>
+        <button type="submit" class="btn">Add Shift</button>
+    </form>
+</div>
+{% endblock %}

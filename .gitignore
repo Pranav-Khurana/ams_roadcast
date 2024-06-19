@@ -1,0 +1,7 @@
+.env
+.yaml
+__pycache__
+/attendance
+/migrations
+venv
+/static/images
